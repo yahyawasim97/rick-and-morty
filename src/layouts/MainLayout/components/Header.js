@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../../../assets/images/logo.png";
 import { Colors } from "../../../config.js/constants/colors";
@@ -19,6 +20,14 @@ const StyleHeading = styled.h2`
   color: ${Colors.secondaryText};
 `;
 
+const StyledLink = styled(Link)`
+  color: ${Colors.secondaryText};
+  text-decoration: none;
+  &:hover {
+    color: ${Colors.primaryLogo};
+  }
+`;
+
 const Header = () => {
   return (
     <Container fluid>
@@ -36,7 +45,7 @@ const Header = () => {
           className="d-flex justify-content-center align-items-center p-4"
         >
           <StyleHeading>
-            <a>Characters</a>
+            <StyledLink to="/">Home</StyledLink> | <StyledLink to="/characters">Characters</StyledLink>
           </StyleHeading>
         </Col>
       </StyledRow>

@@ -6,7 +6,12 @@ module.exports = {
   output: { path: path.join(__dirname, "build"), filename: "index.bundle.js" },
   mode: process.env.NODE_ENV || "development",
   resolve: { modules: [path.resolve(__dirname, "src"), "node_modules"] },
-  devServer: { contentBase: path.join(__dirname, "src") },
+  devServer: {
+    contentBase: path.join(__dirname, "src"),
+    historyApiFallback: true,
+    contentBase: "./",
+    hot: true,
+  },
   module: {
     rules: [
       {
@@ -19,9 +24,13 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
+        test: /\.(jpg|jpeg|png|gif|mp3)$/,
         use: ["file-loader"],
       },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'url-loader'],
+      }
     ],
   },
   plugins: [
