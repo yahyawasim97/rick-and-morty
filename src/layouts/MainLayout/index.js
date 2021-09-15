@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Colors } from "../../config.js/constants/colors";
+import { Colors } from "../../config/constants/colors";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 

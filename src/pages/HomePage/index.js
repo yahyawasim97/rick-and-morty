@@ -6,7 +6,7 @@ import Slider3 from "../../assets/images/3.jpeg";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
-import { Colors } from "../../config.js/constants/colors";
+import { Colors } from "../../config/constants/colors";
 
 const HomePage = () => {
   const StyledRow = styled(Row)`
@@ -37,7 +37,7 @@ const HomePage = () => {
     <section>
       <Container>
         <StyledRow>
-          <Col md="4" xs="12">
+          <Col md="5" xs="12" className="m-auto">
             <StyledShowDescription>
               Rick and Morty is an American adult animated science fiction
               sitcom created by Justin Roiland and Dan Harmon for Cartoon
@@ -50,7 +50,7 @@ const HomePage = () => {
               adventures.
             </StyledShowDescription>
           </Col>
-          <Col md="3" xs="2" className="my-3" />
+          <Col md="2" xs="2" className="my-3" />
           <Col md="5" xs="12">
             <StyledIntroImageContainer>
               <StyledIntroImage src={IntroImage} />

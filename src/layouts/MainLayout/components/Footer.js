@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
 import styled from "styled-components";
-import { Colors } from "../../../config.js/constants/colors";
+import { Colors } from "../../../config/constants/colors";
 
 const StyledRow = styled(Row)`
   background: ${Colors.secondaryColor};

@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../../../assets/images/logo.png";
-import { Colors } from "../../../config.js/constants/colors";
+import { Colors } from "../../../config/constants/colors";
 
 const StyledRow = styled(Row)`
   background: ${Colors.secondaryColor};
