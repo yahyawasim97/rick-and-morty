@@ -13,13 +13,21 @@ const StyledRow = styled(Row)`
   align-items: center;
   padding: 3rem;
   font-weight: 500;
-  font-size: 1.5rem;
+  p {
+    text-align: center;
+    margin-bottom: 0 !important;
+    font-size: 1.5rem;
+  }
 `;
 
 const Footer = () => {
   return (
     <Container fluid>
-      <StyledRow>Created by Yahya Wasim</StyledRow>
+      <StyledRow>
+        <p>Created by Yahya Wasim</p>
+        <br />
+        +92 323 2402932 | yahyaand786@gmail.com
+      </StyledRow>
     </Container>
   );
 };

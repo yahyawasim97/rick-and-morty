@@ -13,6 +13,7 @@ export default (state = Initial_State, action) => {
         case SET_CHARACTERS:
             return {...state, data:action.payload.results, isNextAvailable: action.payload.info.next , error:'', loading: false}
         case SET_ERROR:
+            console.log('here',action.payload)
             return {...state, error: action.payload, loading: false}
         default:
             return state;

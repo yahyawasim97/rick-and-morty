@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
-  Card,
-  Col,
+  Alert,
+  Button, Col,
   Container,
   FloatingLabel,
   Form,
-  Offcanvas,
   Row,
+  Spinner
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import styled from "styled-components";
-import Logo from "../../assets/images/logo.png";
 import { ReactComponent as Search } from "../../assets/images/search.svg";
 import { Colors } from "../../config/constants/colors";
 import useDebounce from "../../config/utils/UseDebounce";
 import { getCharactersAction } from "../../redux/actions/characters.action";
+import CharacterCard from "./components/CharacterCard";
+import CharacterDetailCanvas from "./components/CharacterDetailCanvas";
 
 const StyledDivider = styled.hr`
   color: ${Colors.secondaryColor};
@@ -42,27 +42,6 @@ const SearchContainer = styled.div`
   align-items: center;
 `;
 
-const StyledCard = styled(Card)`
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  width: 100%;
-  border-radius: 10%;
-  padding: 1rem;
-
-  &:hover {
-    box-shadow: 8px 8px 16px 0 rgba(0, 0, 0, 0.2);
-    background: ${Colors.secondaryColor};
-    color: ${Colors.secondaryText};
-  }
-`;
-
-const StyledCardImage = styled(Card.Img)`
-  height: 15rem;
-  object-fit: contain;
-  box-shadow: 0px 2px 0px 0 rgba(0, 0, 0, 0.2);
-  width: 100%;
-`;
-
 const StyledButton = styled(Button)`
   background: ${Colors.primaryLogo};
   border: none;
@@ -83,8 +62,8 @@ const CharactersPage = () => {
   const history = useHistory();
 
   const characters = useSelector((state) => state.characters.data);
-  const error = useSelector((state) => state.characters.error);
   const loading = useSelector((state) => state.characters.loading);
+  const error = useSelector((state) => state.characters.error);
   const isNextAvailable = useSelector(
     (state) => state.characters.isNextAvailable
   );
@@ -148,7 +127,7 @@ const CharactersPage = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
                 <SearchContainer>
-                  <Search />
+                  {loading?<Spinner animation="grow"/>:<Search />}
                 </SearchContainer>
               </FloatingLabel>
             </Col>
@@ -156,32 +135,14 @@ const CharactersPage = () => {
         </Col>
         <StyledDivider />
       </Row>
+        {error && <Alert className="text-center" variant="danger">{error}</Alert>}
       <Row className="justify-content-center">
         {characters?.map((character) => (
-          <Col md="4" xs="10" className="px-4 pb-5" key={character.id}>
-            <StyledCard>
-              <StyledCardImage variant="bottom" src={character.image} />
-              <Card.Body>
-                <Card.Title>{character.name}</Card.Title>
-                <Card.Text className="mb-5">
-                  <strong>Status:</strong> {character.status} <br />
-                  <strong>Gender:</strong> {character.gender}
-                  <br />
-                  <strong>Species:</strong> {character.species}
-                  <br />
-                  <strong>Origin:</strong> {character.origin.name}
-                  <br />
-                </Card.Text>
-                <StyledButton
-                  variant="primary"
-                  className="w-100"
-                  onClick={() => setSelectedCharacter(character)}
-                >
-                  View Detail
-                </StyledButton>
-              </Card.Body>
-            </StyledCard>
-          </Col>
+          <CharacterCard
+            key={character.id}
+            character={character}
+            setSelectedCharacter={setSelectedCharacter}
+          />
         ))}
       </Row>
       <Row className="mb-5">
@@ -201,42 +162,10 @@ const CharactersPage = () => {
         <StyledDivider />
       </Row>
       {selectedCharacter && (
-        <Offcanvas
-          show={selectedCharacter}
-          onHide={() => setSelectedCharacter()}
-          placement="end"
-          style={{background:'black', color:'white'}}
-        >
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title>{selectedCharacter.name}</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <StyledCardImage
-              className="mb-5"
-              variant="bottom"
-              src={selectedCharacter.image}
-            />
-            <Row>
-              <Col md="12">
-                <p>
-                  <strong>Status:</strong> {selectedCharacter.status}{" "}
-                </p>
-                <p>
-                  <strong>Gender:</strong> {selectedCharacter.gender}{" "}
-                </p>
-                <p>
-                  <strong>Species:</strong> {selectedCharacter.species}
-                </p>
-                <p>
-                  <strong>Origin:</strong> {selectedCharacter.origin.name}
-                </p>
-                <p>
-                  <strong>Location:</strong> {selectedCharacter.location.name}
-                </p>
-              </Col>
-            </Row>
-          </Offcanvas.Body>
-        </Offcanvas>
+        <CharacterDetailCanvas
+          selectedCharacter={selectedCharacter}
+          setSelectedCharacter={setSelectedCharacter}
+        />
       )}
     </Container>
   );

@@ -17,7 +17,7 @@ export const getCharactersAction =  ({ page, gender, name }) => {
       }catch(e){
         dispatch({
             type:SET_ERROR,
-            payload: response.results
+            payload: e.response.data.error
         })
       }f
     };
